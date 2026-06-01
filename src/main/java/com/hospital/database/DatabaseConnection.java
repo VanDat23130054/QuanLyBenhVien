@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static final String SERVER = "localhost";
     private static final String DATABASE = "QuanLyBenhVien";
-    private static final String USERNAME = "hospital_admin";
+    private static final String USERNAME = "sa";
     private static final String PASSWORD = "YourStrongPassword123!"; // Change this to your SQL Server password
     private static final int PORT = 1433;
 
