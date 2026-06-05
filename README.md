@@ -1,228 +1,165 @@
-# 🎊 DAO PATTERN SETUP - PROJECT COMPLETE ✅
+# Hệ Thống Quản Lý Bệnh Viện
 
-## Final Summary
+## Mô Tả
+Ứng dụng quản lý bệnh viện toàn diện được xây dựng với pattern **DAO (Data Access Object)** để quản lý các khía cạnh của bệnh viện bao gồm:
+- Quản lý nhân sự (lịch trực, chấm công, tính lương)
+- Quản lý bệnh nhân
+- Quản lý lịch khám
+- Quản lý chẩn đoán
+- Quản lý thuốc và đơn thuốc
+- Quản lý nội trú
+- Quản lý hóa đơn
 
-Your **Hospital Management System** has been successfully configured with the professional **DAO (Data Access Object) Pattern**.
-
----
-
-## ✅ What Was Delivered
-
-### Files Created: 15
-
-#### Documentation (9 Files)
-✅ DOCUMENTATION_INDEX.md - Navigation guide
-✅ START_HERE.md - Quick start (5 min)
-✅ PROJECT_SETUP_SUMMARY.md - Complete summary (15 min)
-✅ README_DAO_IMPLEMENTATION.md - Full guide (15 min)
-✅ DAO_QUICK_START.md - Code examples (15 min)
-✅ DAO_QUICK_REFERENCE.md - Visual reference (10 min)
-✅ DAO_PATTERN_GUIDE.md - Architecture guide (20 min)
-✅ DAO_PATTERN_SETUP_CHECKLIST.md - Setup reference (10 min)
-✅ DAO_IMPLEMENTATION_COMPLETE.md - File inventory (10 min)
-
-**Total Documentation:** 2000+ lines, 14000+ words
-
-#### DAO Layer (6 Files)
-✅ IBaseDAO.java - Generic CRUD interface
-✅ IPatientDAO.java - Patient DAO interface
-✅ IAppointmentDAO.java - Appointment DAO interface
-✅ PatientDAO.java - Patient implementation (200+ lines)
-✅ AppointmentDAO.java - Appointment implementation (220+ lines)
-✅ DAOFactory.java - Factory pattern
-
-**Total Code:** 600+ lines
-
-#### Service Layer (2 Files)
-✅ PatientService.java - Business logic with validation (180+ lines)
-✅ AppointmentService.java - Business logic with validation (200+ lines)
-
-**Total Code:** 380+ lines
-
-### Files Modified: 2
-✅ PatientViewModel.java - Updated to use PatientService
-✅ AppointmentViewModel.java - Updated to use AppointmentService
-
----
-
-## 🎯 Architecture Delivered
+## Cấu Trúc Dự Án
 
 ```
-View Layer (UI) 
-    ↓
-ViewModel Layer (MVVM) ← UPDATED
-    ↓
-Service Layer (NEW) ← WITH VALIDATION
-    ↓
-DAO Layer (NEW) ← WITH ABSTRACTION
-    ↓
-Database Layer
+QuanLyBenhVien/
+├── src/main/java/
+│   ├── model/           # Entity/Model classes
+│   ├── dao/             # Data Access Object classes
+│   ├── database/        # Database connection
+│   ├── main/            # Application entry point
+│   └── util/            # Utility classes
+├── database/
+│   └── CreateDatabase.sql  # Database schema
+└── pom.xml              # Maven configuration
 ```
 
----
+## Các Thành Phần Chính
 
-## 📊 Key Metrics
+### 1. Model Classes (Entity Classes)
+Đại diện cho các đối tượng trong hệ thống:
+- `VaiTro.java` - Vai trò người dùng
+- `NguoiDung.java` - Người dùng hệ thống
+- `BenhNhan.java` - Bệnh nhân
+- `LichKham.java` - Lịch khám bệnh
+- `HoSoBenhAn.java` - Hồ sơ bệnh án
+- `ChanDoan.java` - Chẩn đoán
+- `Thuoc.java` - Thông tin thuốc
+- `DonThuoc.java` - Đơn thuốc
+- `ChiTietDonThuoc.java` - Chi tiết đơn thuốc
+- `HoaDon.java` - Hóa đơn
+- `NoiTru.java` - Nội trú
+- `LichTruc.java` - Lịch trực nhân viên
+- `ChamCong.java` - Chấm công
+- `TinhLuong.java` - Tính lương
 
-| Metric | Value |
-|--------|-------|
-| New Files | 15 |
-| Modified Files | 2 |
-| Code Lines | 980+ |
-| Documentation Lines | 2000+ |
-| Total Words | 14000+ |
-| Design Patterns | 5+ |
-| SOLID Principles | 5/5 ✅ |
-| Test Support | 100% |
-| Backward Compatibility | 100% |
-| Production Ready | YES ✅ |
+### 2. DAO Classes (Data Access Objects)
+Xử lý tất cả các thao tác với cơ sở dữ liệu:
+- `IBaseDAO.java` - Interface chung cho tất cả DAO
+- `VaiTroDAO.java` - Quản lý vai trò
+- `NguoiDungDAO.java` - Quản lý người dùng
+- `BenhNhanDAO.java` - Quản lý bệnh nhân
+- `LichKhamDAO.java` - Quản lý lịch khám
+- `HoSoBenhAnDAO.java` - Quản lý hồ sơ bệnh án
+- `ChanDoanDAO.java` - Quản lý chẩn đoán
+- `ThuocDAO.java` - Quản lý thuốc
+- `DonThuocDAO.java` - Quản lý đơn thuốc
+- `ChiTietDonThuocDAO.java` - Quản lý chi tiết đơn thuốc
+- `HoaDonDAO.java` - Quản lý hóa đơn
+- `NoiTruDAO.java` - Quản lý nội trú
+- `LichTrucDAO.java` - Quản lý lịch trực
+- `ChamCongDAO.java` - Quản lý chấm công
+- `TinhLuongDAO.java` - Quản lý tính lương
 
----
+### 3. Database Connection
+- `DatabaseConnection.java` - Quản lý kết nối SQL Server
 
-## 🚀 How to Get Started
+### 4. Utility Classes
+- `Constants.java` - Hằng số của hệ thống
+- `InputValidator.java` - Xác thực input từ người dùng
 
-### Step 1: Read Documentation (30 minutes)
-1. Open: `DOCUMENTATION_INDEX.md`
-2. Then: `START_HERE.md` (5 min)
-3. Then: `PROJECT_SETUP_SUMMARY.md` (15 min)
+## Yêu Cầu
+- Java 11 hoặc cao hơn
+- SQL Server
+- Maven
 
-### Step 2: Explore Code (30 minutes)
-1. Review: `src/main/java/com/hospital/dao/`
-2. Review: `src/main/java/com/hospital/service/`
-3. Review: Updated ViewModels
+## Dependency
+```xml
+<dependency>
+    <groupId>com.microsoft.sqlserver</groupId>
+    <artifactId>mssql-jdbc</artifactId>
+    <version>12.2.0.jre11</version>
+</dependency>
+```
 
-### Step 3: Compile & Test (15 minutes)
-1. Run: `mvn clean compile`
-2. Run: The application
-3. Test: Existing functionality
+## Cấu Hình Cơ Sở Dữ Liệu
+Sửa file `DatabaseConnection.java` với thông tin kết nối của bạn:
+```java
+private static final String SERVER = "localhost";
+private static final String DATABASE = "QuanLyBenhVien";
+private static final String USER = "sa";
+private static final String PASSWORD = "123456";
+```
 
-### Step 4: Start Development (Ongoing)
-1. Use the new pattern for features
-2. Write services with validation
-3. Write unit tests with mocks
+## Cách Sử Dụng
 
----
+### 1. Tạo Cơ Sở Dữ Liệu
+Chạy script SQL trong file `database/CreateDatabase.sql` để tạo database.
 
-## 💡 Key Features
+### 2. Biên Dịch Dự Án
+```bash
+mvn clean compile
+```
 
-✅ **Separation of Concerns** - Each layer has clear responsibility
-✅ **Validation** - Comprehensive input validation in services
-✅ **Testability** - Full support for unit testing with mocks
-✅ **Scalability** - Easy to add new entities and operations
-✅ **Security** - SQL injection prevention with PreparedStatements
-✅ **Maintainability** - Clean code following best practices
-✅ **Extensibility** - Easy to add new features and layers
-✅ **Documentation** - Comprehensive guides for all roles
+### 3. Chạy Ứng Dụng
+```bash
+mvn exec:java -Dexec.mainClass="main.Application"
+```
 
----
+## Ví Dụ Sử Dụng DAO
 
-## 📞 Quick Links
+### Lấy danh sách tất cả bệnh nhân
+```java
+BenhNhanDAO benhNhanDAO = new BenhNhanDAO();
+List<BenhNhan> danhSach = benhNhanDAO.getAll();
+```
 
-| Document | Time | Purpose |
-|----------|------|---------|
-| **DOCUMENTATION_INDEX.md** | Navigation | Start here! |
-| **START_HERE.md** | 5 min | Quick overview |
-| **PROJECT_SETUP_SUMMARY.md** | 15 min | Complete summary |
-| **README_DAO_IMPLEMENTATION.md** | 15 min | Full guide |
-| **DAO_QUICK_START.md** | 15 min | Code examples |
-| **DAO_QUICK_REFERENCE.md** | 10 min | Quick reference |
-| **DAO_PATTERN_GUIDE.md** | 20 min | Architecture |
+### Thêm bệnh nhân mới
+```java
+BenhNhan benhNhan = new BenhNhan(1, LocalDate.of(1990, 5, 15), "Nam", "123 Đường A", "BH123456");
+benhNhanDAO.insert(benhNhan);
+```
 
----
+### Cập nhật thông tin bệnh nhân
+```java
+benhNhan.setDiaChi("456 Đường B");
+benhNhanDAO.update(benhNhan);
+```
 
-## ✨ What You Get
+### Xóa bệnh nhân
+```java
+benhNhanDAO.delete(benhNhanId);
+```
 
-### Immediate
-✅ Professional DAO pattern implementation
-✅ Service layer with validation
-✅ MVVM integration
-✅ Comprehensive documentation
-✅ Code examples and templates
+### Tìm kiếm bệnh nhân theo tên
+```java
+List<BenhNhan> results = benhNhanDAO.searchByName("Nguyễn");
+```
 
-### Short Term
-✅ Scalable architecture for new features
-✅ Testing framework for unit tests
-✅ Best practices foundation
-✅ Clear development path
+## Pattern Được Sử Dụng
 
-### Long Term
-✅ Maintainable codebase
-✅ Easy to onboard new developers
-✅ Foundation for advanced features
-✅ Professional quality system
+### DAO Pattern
+- **Tách biệt** logic truy cập dữ liệu khỏi business logic
+- **Tái sử dụng** code dễ dàng
+- **Bảo trì** dễ hơn
+- **Unit test** hiệu quả hơn
 
----
+### Interface Pattern
+- `IBaseDAO<T>` cung cấp các phương thức cơ bản: `getById`, `getAll`, `insert`, `update`, `delete`
+- Tất cả DAO classes triển khai interface này
 
-## 🎓 Learning Resources
+## Cách Mở Rộng
 
-**Quick Learning Path (30 minutes)**
-→ START_HERE.md
-→ DAO_QUICK_START.md
-→ DAO_QUICK_REFERENCE.md
+### Thêm DAO Mới
+1. Tạo Model class mới nếu cần
+2. Tạo DAO class triển khai `IBaseDAO<T>`
+3. Implement các phương thức yêu cầu
+4. Thêm các phương thức tìm kiếm tùy chỉnh
 
-**Complete Learning Path (60 minutes)**
-→ START_HERE.md
-→ PROJECT_SETUP_SUMMARY.md
-→ DAO_PATTERN_GUIDE.md
-→ README_DAO_IMPLEMENTATION.md
-→ DAO_QUICK_START.md
-
-**Code-First Path (45 minutes)**
-→ DAO_QUICK_START.md
-→ DAO_QUICK_REFERENCE.md
-→ Explore source code
-
----
-
-## 🏆 Quality Assurance
-
-✅ All code follows Java best practices
-✅ All interfaces properly designed
-✅ All validation rules implemented
-✅ All error handling included
-✅ All documentation complete
-✅ All examples provided
-✅ All patterns correctly applied
-✅ All backward compatibility maintained
-
----
-
-## 📋 Next Actions
-
-1. **NOW:** Read DOCUMENTATION_INDEX.md
-2. **NEXT:** Read START_HERE.md (5 minutes)
-3. **THEN:** Explore source code
-4. **THEN:** Write first unit test
-5. **THEN:** Create new feature with pattern
-
----
-
-## 🎉 Congratulations!
-
-Your project now has:
-
-✅ Professional architecture
-✅ Clean code structure
-✅ Comprehensive documentation
-✅ Full test support
-✅ Production-ready quality
-✅ Best practices throughout
-✅ Clear development path
-✅ Scalable foundation
-
-**You're ready to build amazing features!** 🚀
+## Liên Hệ & Hỗ Trợ
+Để báo cáo lỗi hoặc đề xuất tính năng, vui lòng liên hệ đội phát triển.
 
 ---
-
-**Status:** ✅ COMPLETE
-**Date:** June 5, 2026
-**Version:** 1.0
-
----
-
-### 👉 **START HERE: [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md)**
-
-**Then read: [START_HERE.md](START_HERE.md)**
-
----
-
-Happy coding! 🎊
+**Phiên bản:** 1.0  
+**Cập nhật lần cuối:** 2026
