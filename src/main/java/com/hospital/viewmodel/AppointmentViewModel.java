@@ -1,8 +1,7 @@
 package com.hospital.viewmodel;
 
 import com.hospital.model.Appointment;
-import com.hospital.repository.IAppointmentRepository;
-import com.hospital.repository.AppointmentRepository;
+import com.hospital.service.AppointmentService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +9,10 @@ import java.util.List;
 /**
  * ViewModel for Appointment operations
  * Handles business logic and state management for appointment-related views
+ * Uses Service layer for business logic
  */
 public class AppointmentViewModel extends BaseViewModel {
-    private IAppointmentRepository appointmentRepository;
+    private AppointmentService appointmentService;
     
     private List<Appointment> appointments;
     private Appointment selectedAppointment;
@@ -20,13 +20,13 @@ public class AppointmentViewModel extends BaseViewModel {
     private boolean isLoading;
 
     public AppointmentViewModel() {
-        this.appointmentRepository = new AppointmentRepository();
+        this.appointmentService = new AppointmentService();
         this.appointments = new ArrayList<>();
         this.isLoading = false;
     }
 
-    public AppointmentViewModel(IAppointmentRepository appointmentRepository) {
-        this.appointmentRepository = appointmentRepository;
+    public AppointmentViewModel(AppointmentService appointmentService) {
+        this.appointmentService = appointmentService;
         this.appointments = new ArrayList<>();
         this.isLoading = false;
     }
@@ -36,7 +36,7 @@ public class AppointmentViewModel extends BaseViewModel {
     public void loadAllAppointments() {
         setIsLoading(true);
         try {
-            List<Appointment> loadedAppointments = appointmentRepository.getAllAppointments();
+            List<Appointment> loadedAppointments = appointmentService.getAllAppointments();
             setAppointments(loadedAppointments);
             setStatusMessage("Appointments loaded successfully");
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class AppointmentViewModel extends BaseViewModel {
     public void loadAppointmentsByPatient(int patientId) {
         setIsLoading(true);
         try {
-            List<Appointment> patientAppointments = appointmentRepository.getAppointmentsByPatientId(patientId);
+            List<Appointment> patientAppointments = appointmentService.getAppointmentsByPatientId(patientId);
             setAppointments(patientAppointments);
             setStatusMessage("Appointments for patient loaded successfully");
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class AppointmentViewModel extends BaseViewModel {
     public void loadAppointmentsByDoctor(int doctorId) {
         setIsLoading(true);
         try {
-            List<Appointment> doctorAppointments = appointmentRepository.getAppointmentsByDoctorId(doctorId);
+            List<Appointment> doctorAppointments = appointmentService.getAppointmentsByDoctorId(doctorId);
             setAppointments(doctorAppointments);
             setStatusMessage("Appointments for doctor loaded successfully");
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class AppointmentViewModel extends BaseViewModel {
     public void loadAppointmentsByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
         setIsLoading(true);
         try {
-            List<Appointment> rangeAppointments = appointmentRepository.getAppointmentsByDateRange(startDate, endDate);
+            List<Appointment> rangeAppointments = appointmentService.getAppointmentsByDateRange(startDate, endDate);
             setAppointments(rangeAppointments);
             setStatusMessage("Appointments for date range loaded successfully");
         } catch (Exception e) {
@@ -87,7 +87,7 @@ public class AppointmentViewModel extends BaseViewModel {
 
     public void addAppointment(Appointment appointment) {
         try {
-            if (appointmentRepository.addAppointment(appointment)) {
+            if (appointmentService.createAppointment(appointment)) {
                 setStatusMessage("Appointment scheduled successfully");
                 loadAllAppointments();
             } else {
@@ -100,7 +100,7 @@ public class AppointmentViewModel extends BaseViewModel {
 
     public void updateAppointment(Appointment appointment) {
         try {
-            if (appointmentRepository.updateAppointment(appointment)) {
+            if (appointmentService.updateAppointment(appointment)) {
                 setStatusMessage("Appointment updated successfully");
                 loadAllAppointments();
             } else {
@@ -113,7 +113,7 @@ public class AppointmentViewModel extends BaseViewModel {
 
     public void deleteAppointment(int appointmentId) {
         try {
-            if (appointmentRepository.deleteAppointment(appointmentId)) {
+            if (appointmentService.deleteAppointment(appointmentId)) {
                 setStatusMessage("Appointment deleted successfully");
                 loadAllAppointments();
             } else {
@@ -126,7 +126,7 @@ public class AppointmentViewModel extends BaseViewModel {
 
     public Appointment getAppointmentById(int appointmentId) {
         try {
-            return appointmentRepository.getAppointmentById(appointmentId);
+            return appointmentService.getAppointmentById(appointmentId);
         } catch (Exception e) {
             setStatusMessage("Error retrieving appointment: " + e.getMessage());
             return null;

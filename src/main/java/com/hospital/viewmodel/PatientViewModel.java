@@ -1,8 +1,7 @@
 package com.hospital.viewmodel;
 
 import com.hospital.model.Patient;
-import com.hospital.repository.IPatientRepository;
-import com.hospital.repository.PatientRepository;
+import com.hospital.service.PatientService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +9,10 @@ import java.util.List;
 /**
  * ViewModel for Patient operations
  * Handles business logic and state management for patient-related views
+ * Uses Service layer for business logic
  */
 public class PatientViewModel extends BaseViewModel {
-    private IPatientRepository patientRepository;
+    private PatientService patientService;
     
     private List<Patient> patients;
     private Patient selectedPatient;
@@ -20,13 +20,13 @@ public class PatientViewModel extends BaseViewModel {
     private boolean isLoading;
 
     public PatientViewModel() {
-        this.patientRepository = new PatientRepository();
+        this.patientService = new PatientService();
         this.patients = new ArrayList<>();
         this.isLoading = false;
     }
 
-    public PatientViewModel(IPatientRepository patientRepository) {
-        this.patientRepository = patientRepository;
+    public PatientViewModel(PatientService patientService) {
+        this.patientService = patientService;
         this.patients = new ArrayList<>();
         this.isLoading = false;
     }
@@ -36,7 +36,7 @@ public class PatientViewModel extends BaseViewModel {
     public void loadAllPatients() {
         setIsLoading(true);
         try {
-            List<Patient> loadedPatients = patientRepository.getAllPatients();
+            List<Patient> loadedPatients = patientService.getAllPatients();
             setPatients(loadedPatients);
             setStatusMessage("Patients loaded successfully");
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class PatientViewModel extends BaseViewModel {
     public void searchPatients(String searchTerm) {
         setIsLoading(true);
         try {
-            List<Patient> searchResults = patientRepository.searchPatients(searchTerm);
+            List<Patient> searchResults = patientService.searchPatients(searchTerm);
             setPatients(searchResults);
             setStatusMessage("Search completed: " + searchResults.size() + " patient(s) found");
         } catch (Exception e) {
@@ -61,8 +61,7 @@ public class PatientViewModel extends BaseViewModel {
 
     public void addPatient(Patient patient) {
         try {
-            patient.setRegistrationDate(LocalDate.now());
-            if (patientRepository.addPatient(patient)) {
+            if (patientService.createPatient(patient)) {
                 setStatusMessage("Patient added successfully");
                 loadAllPatients();
             } else {
@@ -75,7 +74,7 @@ public class PatientViewModel extends BaseViewModel {
 
     public void updatePatient(Patient patient) {
         try {
-            if (patientRepository.updatePatient(patient)) {
+            if (patientService.updatePatient(patient)) {
                 setStatusMessage("Patient updated successfully");
                 loadAllPatients();
             } else {
@@ -88,7 +87,7 @@ public class PatientViewModel extends BaseViewModel {
 
     public void deletePatient(int patientId) {
         try {
-            if (patientRepository.deletePatient(patientId)) {
+            if (patientService.deletePatient(patientId)) {
                 setStatusMessage("Patient deleted successfully");
                 loadAllPatients();
             } else {
@@ -101,7 +100,7 @@ public class PatientViewModel extends BaseViewModel {
 
     public Patient getPatientById(int patientId) {
         try {
-            return patientRepository.getPatientById(patientId);
+        	return patientService.getPatientById(patientId);
         } catch (Exception e) {
             setStatusMessage("Error retrieving patient: " + e.getMessage());
             return null;
