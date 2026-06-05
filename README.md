@@ -89,7 +89,7 @@ Sửa file `DatabaseConnection.java` với thông tin kết nối của bạn:
 private static final String SERVER = "localhost";
 private static final String DATABASE = "QuanLyBenhVien";
 private static final String USER = "sa";
-private static final String PASSWORD = "123456";
+private static final String PASSWORD = "YourStrongPassword123!";
 ```
 
 ## Cách Sử Dụng
