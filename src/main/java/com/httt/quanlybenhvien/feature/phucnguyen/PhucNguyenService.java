@@ -56,6 +56,12 @@ public class PhucNguyenService {
                 .orElseThrow(() -> new IllegalStateException("Tài khoản chưa được liên kết với hồ sơ bệnh nhân."));
     }
 
+    public BenhNhan layBenhNhanTheoTenDangNhap(String tenDangNhap) throws SQLException {
+        validateNotBlank(tenDangNhap, "Tên đăng nhập");
+        return benhNhanRepository.findByTenDangNhap(tenDangNhap)
+                .orElseThrow(() -> new IllegalStateException("Không tìm thấy phiên đăng nhập cũ."));
+    }
+
     public BenhNhan dangKy(String hoTen, String tenDangNhap, String matKhau) throws Exception {
         validateNotBlank(hoTen, "Họ tên");
         validateNotBlank(tenDangNhap, "Tên đăng nhập");

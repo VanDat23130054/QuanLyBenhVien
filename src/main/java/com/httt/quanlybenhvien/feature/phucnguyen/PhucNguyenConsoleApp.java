@@ -8,18 +8,24 @@ import com.httt.quanlybenhvien.model.NhanVien;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 
 public class PhucNguyenConsoleApp {
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private static final DateTimeFormatter VIEW_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final Path SESSION_FILE = Paths.get(".phuc-nguyen-session");
 
     private final Scanner scanner = new Scanner(System.in);
     private final PhucNguyenService service = new PhucNguyenService();
     private BenhNhan currentBenhNhan;
 
     public void run() {
+        restoreSession();
         boolean running = true;
         while (running) {
             printMenu();
@@ -27,10 +33,18 @@ public class PhucNguyenConsoleApp {
             try {
                 switch (choice) {
                     case "1":
-                        dangNhap();
+                        if (currentBenhNhan == null) {
+                            dangNhap();
+                        } else {
+                            dangXuat();
+                        }
                         break;
                     case "2":
-                        dangKy();
+                        if (currentBenhNhan == null) {
+                            dangKy();
+                        } else {
+                            System.out.println("Lựa chọn không hợp lệ.");
+                        }
                         break;
                     case "3":
                         datLichKham();
@@ -65,8 +79,12 @@ public class PhucNguyenConsoleApp {
             System.out.println("Đang đăng nhập: " + currentBenhNhan.getTenBenhNhan()
                     + " (" + currentBenhNhan.getMaBenhNhan() + ")");
         }
-        System.out.println("1. Đăng nhập");
-        System.out.println("2. Đăng kí");
+        if (currentBenhNhan == null) {
+            System.out.println("1. Đăng nhập");
+            System.out.println("2. Đăng kí");
+        } else {
+            System.out.println("1. Đăng xuất");
+        }
         System.out.println("3. Đặt lịch khám");
         System.out.println("4. Xem lịch khám");
         System.out.println("5. Thanh toán");
@@ -78,6 +96,7 @@ public class PhucNguyenConsoleApp {
         String tenDangNhap = readLine("Tên đăng nhập: ");
         String matKhau = readLine("Mật khẩu: ");
         currentBenhNhan = service.dangNhap(tenDangNhap, matKhau);
+        saveSession(currentBenhNhan);
         System.out.println("Đăng nhập thành công. Xin chào " + currentBenhNhan.getTenBenhNhan() + "!");
     }
 
@@ -87,7 +106,15 @@ public class PhucNguyenConsoleApp {
         String tenDangNhap = readLine("Tên đăng nhập: ");
         String matKhau = readLine("Mật khẩu: ");
         currentBenhNhan = service.dangKy(hoTen, tenDangNhap, matKhau);
+        saveSession(currentBenhNhan);
         System.out.println("Đăng kí thành công. Mã bệnh nhân của bạn là: " + currentBenhNhan.getMaBenhNhan());
+    }
+
+    private void dangXuat() throws Exception {
+        System.out.println("\n--- ĐĂNG XUẤT ---");
+        System.out.println("Đã đăng xuất tài khoản: " + currentBenhNhan.getTenBenhNhan());
+        currentBenhNhan = null;
+        clearSession();
     }
 
     private void datLichKham() throws Exception {
@@ -179,5 +206,31 @@ public class PhucNguyenConsoleApp {
                 System.out.println("Sai định dạng. Ví dụ đúng: 25/06/2026 08:30");
             }
         }
+    }
+
+    private void restoreSession() {
+        if (!Files.exists(SESSION_FILE)) {
+            return;
+        }
+
+        try {
+            String tenDangNhap = new String(Files.readAllBytes(SESSION_FILE), StandardCharsets.UTF_8).trim();
+            if (tenDangNhap.isEmpty()) {
+                clearSession();
+                return;
+            }
+            currentBenhNhan = service.layBenhNhanTheoTenDangNhap(tenDangNhap);
+        } catch (Exception ex) {
+            currentBenhNhan = null;
+            System.out.println("Không thể khôi phục phiên đăng nhập: " + ex.getMessage());
+        }
+    }
+
+    private void saveSession(BenhNhan benhNhan) throws Exception {
+        Files.write(SESSION_FILE, benhNhan.getTenDangNhap().getBytes(StandardCharsets.UTF_8));
+    }
+
+    private void clearSession() throws Exception {
+        Files.deleteIfExists(SESSION_FILE);
     }
 }
