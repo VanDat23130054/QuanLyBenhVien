@@ -127,10 +127,10 @@ public class PhucNguyenService {
 
     public List<HoaDon> xemHoaDon(String maBenhNhan) throws SQLException {
         validateNotBlank(maBenhNhan, "Mã bệnh nhân");
-        return hoaDonRepository.findByMaBenhNhan(maBenhNhan);
+        return hoaDonRepository.findUnpaidByMaBenhNhan(maBenhNhan);
     }
 
-    public HoaDon thanhToan(String maBenhNhan, String maHoaDon) throws Exception {
+    public HoaDon layHoaDonCanThanhToan(String maBenhNhan, String maHoaDon) throws Exception {
         validateNotBlank(maBenhNhan, "Mã bệnh nhân");
         validateNotBlank(maHoaDon, "Mã hóa đơn");
 
@@ -139,10 +139,16 @@ public class PhucNguyenService {
         if (!maBenhNhan.equals(hoaDon.getMaBenhNhan())) {
             throw new IllegalArgumentException("Hóa đơn này không thuộc về bệnh nhân đang đăng nhập.");
         }
-
-        // Class model hiện tại chưa có thuộc tính trạng thái thanh toán.
-        // Vì vậy thao tác này xác nhận thanh toán và trả về hóa đơn để in biên nhận.
+        if (hoaDon.daThanhToan()) {
+            throw new IllegalArgumentException("Hóa đơn này đã được thanh toán trước đó.");
+        }
         return hoaDon;
+    }
+
+    public HoaDon thanhToan(String maBenhNhan, String maHoaDon, String phuongThucThanhToan) throws Exception {
+        layHoaDonCanThanhToan(maBenhNhan, maHoaDon);
+        validateNotBlank(phuongThucThanhToan, "Phương thức thanh toán");
+        return hoaDonRepository.markAsPaid(maHoaDon, phuongThucThanhToan);
     }
 
     public List<NhanVien> layDanhSachBacSi() throws SQLException {
