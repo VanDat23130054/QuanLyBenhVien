@@ -82,6 +82,9 @@ CREATE TABLE HoaDon (
     maHoaDon VARCHAR(50) PRIMARY KEY,
     loaiHoaDon NVARCHAR(100),
     donGia INT NOT NULL DEFAULT 0,
+    trangThaiThanhToan NVARCHAR(50) NOT NULL DEFAULT N'Chưa thanh toán',
+    ngayThanhToan DATETIME2 NULL,
+    phuongThucThanhToan NVARCHAR(50) NULL,
     maBenhNhan VARCHAR(50) NOT NULL,
     CONSTRAINT FK_HoaDon_BenhNhan FOREIGN KEY (maBenhNhan) REFERENCES BenhNhan(maBenhNhan)
 );

@@ -18,6 +18,7 @@ import java.util.Scanner;
 public class PhucNguyenConsoleApp {
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private static final DateTimeFormatter VIEW_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter PAYMENT_DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private static final Path SESSION_FILE = Paths.get(".phuc-nguyen-session");
 
     private final Scanner scanner = new Scanner(System.in);
@@ -167,23 +168,90 @@ public class PhucNguyenConsoleApp {
         System.out.println("\n--- THANH TOÁN HÓA ĐƠN ---");
         List<HoaDon> hoaDonList = service.xemHoaDon(currentBenhNhan.getMaBenhNhan());
         if (hoaDonList.isEmpty()) {
-            System.out.println("Bạn chưa có hóa đơn nào.");
+            System.out.println("Bạn không có hóa đơn nào cần thanh toán.");
             return;
         }
 
-        System.out.printf("%-10s %-35s %-15s%n", "Mã HĐ", "Loại hóa đơn", "Đơn giá");
-        System.out.println("----------------------------------------------------------------");
+        System.out.printf("%-10s %-35s %-15s %-20s%n", "Mã HĐ", "Loại hóa đơn", "Đơn giá", "Trạng thái");
+        System.out.println("--------------------------------------------------------------------------------");
         for (HoaDon hoaDon : hoaDonList) {
-            System.out.printf("%-10s %-35s %,15d VND%n",
-                    hoaDon.getMaHoaDon(), hoaDon.getLoaiHoaDon(), hoaDon.getDonGia());
+            System.out.printf("%-10s %-35s %,15d VND %-20s%n",
+                    hoaDon.getMaHoaDon(),
+                    hoaDon.getLoaiHoaDon(),
+                    hoaDon.getDonGia(),
+                    hoaDon.getTrangThaiThanhToan());
         }
 
         String maHoaDon = readLine("Nhập mã hóa đơn cần thanh toán: ");
-        HoaDon hoaDon = service.thanhToan(currentBenhNhan.getMaBenhNhan(), maHoaDon);
-        System.out.println("Thanh toán thành công!");
-        System.out.println("Biên nhận: " + hoaDon.getMaHoaDon()
-                + " | " + hoaDon.getLoaiHoaDon()
-                + " | " + String.format("%,d VND", hoaDon.getDonGia()));
+        HoaDon hoaDonCanThanhToan = service.layHoaDonCanThanhToan(currentBenhNhan.getMaBenhNhan(), maHoaDon);
+
+        System.out.println("\nChi tiết hóa đơn:");
+        System.out.println("Mã hóa đơn: " + hoaDonCanThanhToan.getMaHoaDon());
+        System.out.println("Loại hóa đơn: " + hoaDonCanThanhToan.getLoaiHoaDon());
+        System.out.println("Số tiền: " + String.format("%,d VND", hoaDonCanThanhToan.getDonGia()));
+        System.out.println("Trạng thái: " + hoaDonCanThanhToan.getTrangThaiThanhToan());
+
+        String confirm = readLine("Xác nhận thanh toán hóa đơn này? (Y/N): ");
+        if (!confirm.equalsIgnoreCase("Y")) {
+            System.out.println("Đã hủy thanh toán.");
+            return;
+        }
+
+        String phuongThucThanhToan = chonPhuongThucThanhToan(hoaDonCanThanhToan);
+        HoaDon hoaDon = service.thanhToan(currentBenhNhan.getMaBenhNhan(), maHoaDon, phuongThucThanhToan);
+
+        if ("Chuyển khoản".equals(phuongThucThanhToan)) {
+            System.out.println("Đã ghi nhận thanh toán chuyển khoản.");
+        } else {
+            System.out.println("Thanh toán tiền mặt thành công!");
+        }
+        inBienNhan(hoaDon);
+    }
+
+    private String chonPhuongThucThanhToan(HoaDon hoaDon) {
+        while (true) {
+            System.out.println("\nChọn phương thức thanh toán:");
+            System.out.println("1. Tiền mặt");
+            System.out.println("2. Chuyển khoản");
+            String choice = readLine("Lựa chọn của bạn: ");
+
+            switch (choice) {
+                case "1":
+                    return "Tiền mặt";
+                case "2":
+                    inThongTinChuyenKhoan(hoaDon);
+                    String confirm = readLine("Nhập Y sau khi đã chuyển khoản: ");
+                    if (confirm.equalsIgnoreCase("Y")) {
+                        return "Chuyển khoản";
+                    }
+                    System.out.println("Chưa ghi nhận thanh toán chuyển khoản.");
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ.");
+            }
+        }
+    }
+
+    private void inThongTinChuyenKhoan(HoaDon hoaDon) {
+        System.out.println("\n========== THÔNG TIN CHUYỂN KHOẢN ==========");
+        System.out.println("Ngân hàng : MB Bank");
+        System.out.println("Chủ TK    : BENH VIEN ABC");
+        System.out.println("Số TK     : 123456789");
+        System.out.println("Nội dung  : " + hoaDon.getMaHoaDon());
+        System.out.println("Số tiền   : " + String.format("%,d VND", hoaDon.getDonGia()));
+        System.out.println("============================================");
+    }
+
+    private void inBienNhan(HoaDon hoaDon) {
+        System.out.println("\nBiên nhận:");
+        System.out.println("=========================================");
+        System.out.println("Mã hóa đơn : " + hoaDon.getMaHoaDon());
+        System.out.println("Loại hóa đơn: " + hoaDon.getLoaiHoaDon());
+        System.out.println("Số tiền    : " + String.format("%,d VND", hoaDon.getDonGia()));
+        System.out.println("Trạng thái : " + hoaDon.getTrangThaiThanhToan());
+        System.out.println("Phương thức: " + hoaDon.getPhuongThucThanhToan());
+        System.out.println("Ngày thanh toán: " + hoaDon.getNgayThanhToan().format(PAYMENT_DATE_FORMAT));
+        System.out.println("=========================================");
     }
 
     private void requireLogin() {

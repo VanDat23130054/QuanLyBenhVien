@@ -74,4 +74,4 @@ Mật khẩu: hash_pass_123
 
 ## Ghi chú
 
-Class model hiện tại của `HoaDon` chưa có thuộc tính `trangThaiThanhToan`, nên chức năng thanh toán đang xử lý theo hướng xác nhận thanh toán và in biên nhận trên console, không cập nhật trạng thái trong database.
+Chức năng thanh toán chỉ hiển thị hóa đơn chưa thanh toán, yêu cầu người dùng xác nhận `Y/N`, chọn phương thức `Tiền mặt` hoặc `Chuyển khoản`, sau đó mới cập nhật `trangThaiThanhToan`, `ngayThanhToan` và `phuongThucThanhToan` trong database.
