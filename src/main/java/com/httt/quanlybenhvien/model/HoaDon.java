@@ -40,8 +40,6 @@ public class HoaDon {
         this.phuongThucThanhToan = phuongThucThanhToan;
     }
 
-    // ===== GETTER SETTER =====
-
     public String getMaHoaDon() {
         return maHoaDon;
     }
