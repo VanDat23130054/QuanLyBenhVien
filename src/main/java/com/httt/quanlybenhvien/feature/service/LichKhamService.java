@@ -5,25 +5,28 @@ import java.util.List;
 
 public class LichKhamService {
 
-    private List<LichKham> dsLichKham;
+    private final LichKhamRepository repo = new LichKhamRepository();
 
-    public LichKhamService(List<LichKham> dsLichKham) {
-        this.dsLichKham = dsLichKham;
-    }
+    public void chanDoan(String maLichKham, String chanDoan) {
 
-    public boolean chanDoan(String maLichKham, String chanDoan) {
+        try {
+            Optional<LichKham> lich = repo.findById(maLichKham);
 
-        for (LichKham lk : dsLichKham) {
-            if (lk.getMaLichKham().equals(maLichKham)) {
-
-                lk.setChanDoan(chanDoan);
-
-                System.out.println("✔ Đã cập nhật chẩn đoán: " + chanDoan);
-                return true;
+            if (lich.isEmpty()) {
+                System.out.println("❌ Không tìm thấy lịch khám");
+                return;
             }
-        }
 
-        System.out.println("❌ Không tìm thấy lịch khám: " + maLichKham);
-        return false;
+            boolean ok = repo.updateChanDoan(maLichKham, chanDoan);
+
+            if (ok) {
+                System.out.println("✔ Chẩn đoán thành công: " + chanDoan);
+            } else {
+                System.out.println("❌ Cập nhật thất bại");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Lỗi: " + e.getMessage());
+        }
     }
 }
