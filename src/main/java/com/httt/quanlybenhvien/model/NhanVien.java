@@ -9,10 +9,12 @@ public class NhanVien {
     private double mucLuong;
 
     private TaiKhoan taiKhoan;
-    
-    public NhanVien() {}
 
-    public NhanVien(String maNhanVien, String tenNhanVien, String khoa,String chucVu, double mucLuong, TaiKhoan taiKhoan) {
+    public NhanVien() {
+    }
+
+    public NhanVien(String maNhanVien, String tenNhanVien, String khoa,
+                    String chucVu, double mucLuong, TaiKhoan taiKhoan) {
         this.maNhanVien = maNhanVien;
         this.tenNhanVien = tenNhanVien;
         this.khoa = khoa;
@@ -20,6 +22,7 @@ public class NhanVien {
         this.mucLuong = mucLuong;
         this.taiKhoan = taiKhoan;
     }
+
     public String getMaNhanVien() {
         return maNhanVien;
     }
@@ -76,7 +79,7 @@ public class NhanVien {
                 ", khoa='" + khoa + '\'' +
                 ", chucVu='" + chucVu + '\'' +
                 ", mucLuong=" + mucLuong +
-                ", tenDangNhap='" + tenDangNhap + '\'' +
+                ", taiKhoan=" + (taiKhoan != null ? taiKhoan.getTenDangNhap() : null) +
                 '}';
     }
 }
