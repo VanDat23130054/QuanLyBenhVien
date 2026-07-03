@@ -3,13 +3,12 @@ package com.httt.quanlybenhvien.model;
 import java.time.LocalDateTime;
 
 public class HoaDon {
-
     public static final String CHUA_THANH_TOAN = "Chưa thanh toán";
     public static final String DA_THANH_TOAN = "Đã thanh toán";
 
     private String maHoaDon;
     private String loaiHoaDon;
-    private int donGia;
+    private int tongTien;
 
     private BenhNhan benhNhan;
 
@@ -20,20 +19,20 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(String maHoaDon, String loaiHoaDon, int donGia, BenhNhan benhNhan) {
+    public HoaDon(String maHoaDon, String loaiHoaDon, int tongTien, BenhNhan benhNhan) {
         this.maHoaDon = maHoaDon;
         this.loaiHoaDon = loaiHoaDon;
-        this.donGia = donGia;
+        this.tongTien = tongTien;
         this.benhNhan = benhNhan;
         this.trangThaiThanhToan = CHUA_THANH_TOAN;
     }
 
-    public HoaDon(String maHoaDon, String loaiHoaDon, int donGia, BenhNhan benhNhan,
+    public HoaDon(String maHoaDon, String loaiHoaDon, int tongTien, BenhNhan benhNhan,
                   String trangThaiThanhToan, LocalDateTime ngayThanhToan,
                   String phuongThucThanhToan) {
         this.maHoaDon = maHoaDon;
         this.loaiHoaDon = loaiHoaDon;
-        this.donGia = donGia;
+        this.tongTien = tongTien;
         this.benhNhan = benhNhan;
         this.trangThaiThanhToan = trangThaiThanhToan;
         this.ngayThanhToan = ngayThanhToan;
@@ -56,12 +55,12 @@ public class HoaDon {
         this.loaiHoaDon = loaiHoaDon;
     }
 
-    public int getDonGia() {
-        return donGia;
+    public int getTongTien() {
+        return tongTien;
     }
 
-    public void setDonGia(int donGia) {
-        this.donGia = donGia;
+    public void setTongTien(int tongTien) {
+        this.tongTien = tongTien;
     }
 
     public BenhNhan getBenhNhan() {
@@ -96,7 +95,6 @@ public class HoaDon {
         this.phuongThucThanhToan = phuongThucThanhToan;
     }
 
-    // ===== BUSINESS METHOD (OK giữ lại) =====
     public boolean daThanhToan() {
         return DA_THANH_TOAN.equalsIgnoreCase(trangThaiThanhToan);
     }
@@ -106,9 +104,9 @@ public class HoaDon {
         return "HoaDon{" +
                 "maHoaDon='" + maHoaDon + '\'' +
                 ", loaiHoaDon='" + loaiHoaDon + '\'' +
-                ", donGia=" + donGia +
+                ", tongTien=" + tongTien +
                 ", benhNhan=" + (benhNhan != null ? benhNhan.getMaBenhNhan() : null) +
-                ", trangThaiThanhToan='" + trangThaiThanhToan + '\'' +
+                ", trangThai='" + trangThaiThanhToan + '\'' +
                 ", ngayThanhToan=" + ngayThanhToan +
                 ", phuongThucThanhToan='" + phuongThucThanhToan + '\'' +
                 '}';
