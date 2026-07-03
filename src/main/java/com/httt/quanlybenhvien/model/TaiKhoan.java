@@ -5,7 +5,8 @@ public class TaiKhoan {
     private String matKhau;
     private String loaiTaiKhoan;
 
-    public TaiKhoan() {}
+    public TaiKhoan() {
+    }
 
     public TaiKhoan(String tenDangNhap, String matKhau, String loaiTaiKhoan) {
         this.tenDangNhap = tenDangNhap;
