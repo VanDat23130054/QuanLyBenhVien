@@ -9,7 +9,17 @@ public class NhanVien {
     private double mucLuong;
 
     private TaiKhoan taiKhoan;
+    
+    public NhanVien() {}
 
+    public NhanVien(String maNhanVien, String tenNhanVien, String khoa,String chucVu, double mucLuong, TaiKhoan taiKhoan) {
+        this.maNhanVien = maNhanVien;
+        this.tenNhanVien = tenNhanVien;
+        this.khoa = khoa;
+        this.chucVu = chucVu;
+        this.mucLuong = mucLuong;
+        this.taiKhoan = taiKhoan;
+    }
     public String getMaNhanVien() {
         return maNhanVien;
     }
