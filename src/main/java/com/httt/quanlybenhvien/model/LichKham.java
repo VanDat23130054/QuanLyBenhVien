@@ -13,8 +13,13 @@ public class LichKham {
     private NhanVien bacSi;
     private NhanVien leTan;
 
-    public String getMaLichKham() {
-        return maLichKham;
+     public LichKham(String maLichKham, LocalDateTime ngayKham, String chanDoan, String maBenhNhan, String maLeTan, String maBacSi) {
+        this.maLichKham = maLichKham;
+        this.ngayKham = ngayKham;
+        this.chanDoan = chanDoan;
+        this.maBenhNhan = maBenhNhan;
+        this.maLeTan = maLeTan;
+        this.maBacSi = maBacSi;
     }
     public void setMaLichKham(String maLichKham) {
         this.maLichKham = maLichKham;
