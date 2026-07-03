@@ -2,47 +2,21 @@ package com.httt.quanlybenhvien.model;
 
 public class BenhNhan {
     private String maBenhNhan;
-    private String tenBenhNhan;
-    private String tenDangNhap; // optional link to TaiKhoan
+    private String hoTen;
+    private Date ngaySinh;
+    private String gioiTinh;
+    private String diaChi;
+    private String soDienThoai;
 
-    public BenhNhan() {}
+    private List<LichKham> lichKhams = new ArrayList<>();
+    private List<BenhAn> benhAns = new ArrayList<>();
+    private BHYT bhyt;
 
-    public BenhNhan(String maBenhNhan, String tenBenhNhan, String tenDangNhap) {
-        this.maBenhNhan = maBenhNhan;
-        this.tenBenhNhan = tenBenhNhan;
-        this.tenDangNhap = tenDangNhap;
+    public void dangKyKham() {
+        System.out.println("Đăng ký khám cho bệnh nhân");
     }
 
-    public String getMaBenhNhan() {
-        return maBenhNhan;
-    }
-
-    public void setMaBenhNhan(String maBenhNhan) {
-        this.maBenhNhan = maBenhNhan;
-    }
-
-    public String getTenBenhNhan() {
-        return tenBenhNhan;
-    }
-
-    public void setTenBenhNhan(String tenBenhNhan) {
-        this.tenBenhNhan = tenBenhNhan;
-    }
-
-    public String getTenDangNhap() {
-        return tenDangNhap;
-    }
-
-    public void setTenDangNhap(String tenDangNhap) {
-        this.tenDangNhap = tenDangNhap;
-    }
-
-    @Override
-    public String toString() {
-        return "BenhNhan{" +
-                "maBenhNhan='" + maBenhNhan + '\'' +
-                ", tenBenhNhan='" + tenBenhNhan + '\'' +
-                ", tenDangNhap='" + tenDangNhap + '\'' +
-                '}';
+    public void capNhatThongTin() {
+        System.out.println("Cập nhật thông tin bệnh nhân");
     }
 }
