@@ -1,18 +1,20 @@
 package com.httt.quanlybenhvien.model;
 
 public class Giuong {
+
     private String maGiuong;
     private int donGia;
-    private String maPhong;
-    private String maBenhNhan; // optional
+
+    private Phong phong;
+    private BenhNhan benhNhan;
 
     public Giuong() {}
 
-    public Giuong(String maGiuong, int donGia, String maPhong, String maBenhNhan) {
+    public Giuong(String maGiuong, int donGia, Phong phong, BenhNhan benhNhan) {
         this.maGiuong = maGiuong;
         this.donGia = donGia;
-        this.maPhong = maPhong;
-        this.maBenhNhan = maBenhNhan;
+        this.phong = phong;
+        this.benhNhan = benhNhan;
     }
 
     public String getMaGiuong() {
@@ -31,20 +33,20 @@ public class Giuong {
         this.donGia = donGia;
     }
 
-    public String getMaPhong() {
-        return maPhong;
+    public Phong getPhong() {
+        return phong;
     }
 
-    public void setMaPhong(String maPhong) {
-        this.maPhong = maPhong;
+    public void setPhong(Phong phong) {
+        this.phong = phong;
     }
 
-    public String getMaBenhNhan() {
-        return maBenhNhan;
+    public BenhNhan getBenhNhan() {
+        return benhNhan;
     }
 
-    public void setMaBenhNhan(String maBenhNhan) {
-        this.maBenhNhan = maBenhNhan;
+    public void setBenhNhan(BenhNhan benhNhan) {
+        this.benhNhan = benhNhan;
     }
 
     @Override
@@ -52,8 +54,8 @@ public class Giuong {
         return "Giuong{" +
                 "maGiuong='" + maGiuong + '\'' +
                 ", donGia=" + donGia +
-                ", maPhong='" + maPhong + '\'' +
-                ", maBenhNhan='" + maBenhNhan + '\'' +
+                ", phong=" + (phong != null ? phong.getMaPhong() : null) +
+                ", benhNhan=" + (benhNhan != null ? benhNhan.getMaBenhNhan() : null) +
                 '}';
     }
 }
