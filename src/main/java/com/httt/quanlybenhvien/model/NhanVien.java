@@ -1,23 +1,14 @@
 package com.httt.quanlybenhvien.model;
 
 public class NhanVien {
+
     private String maNhanVien;
     private String tenNhanVien;
     private String khoa;
     private String chucVu;
-    private Long mucLuong;
-    private String tenDangNhap;
+    private double mucLuong;
 
-    public NhanVien() {}
-
-    public NhanVien(String maNhanVien, String tenNhanVien, String khoa, String chucVu, Long mucLuong, String tenDangNhap) {
-        this.maNhanVien = maNhanVien;
-        this.tenNhanVien = tenNhanVien;
-        this.khoa = khoa;
-        this.chucVu = chucVu;
-        this.mucLuong = mucLuong;
-        this.tenDangNhap = tenDangNhap;
-    }
+    private TaiKhoan taiKhoan;
 
     public String getMaNhanVien() {
         return maNhanVien;
@@ -51,20 +42,20 @@ public class NhanVien {
         this.chucVu = chucVu;
     }
 
-    public Long getMucLuong() {
+    public double getMucLuong() {
         return mucLuong;
     }
 
-    public void setMucLuong(Long mucLuong) {
+    public void setMucLuong(double mucLuong) {
         this.mucLuong = mucLuong;
     }
 
-    public String getTenDangNhap() {
-        return tenDangNhap;
+    public TaiKhoan getTaiKhoan() {
+        return taiKhoan;
     }
 
-    public void setTenDangNhap(String tenDangNhap) {
-        this.tenDangNhap = tenDangNhap;
+    public void setTaiKhoan(TaiKhoan taiKhoan) {
+        this.taiKhoan = taiKhoan;
     }
 
     @Override
