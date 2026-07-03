@@ -1,32 +1,31 @@
 package com.httt.quanlybenhvien.model;
 
 public class ChiTietDonThuoc {
-    private String maDonThuoc;
-    private String maThuoc;
+    private DonThuoc donThuoc;
+    private Thuoc thuoc;
     private int soLuongKeDon;
-
+    
     public ChiTietDonThuoc() {}
-
-    public ChiTietDonThuoc(String maDonThuoc, String maThuoc, int soLuongKeDon) {
-        this.maDonThuoc = maDonThuoc;
-        this.maThuoc = maThuoc;
+    public ChiTietDonThuoc(DonThuoc donThuoc, Thuoc thuoc, int soLuongKeDon) {
+        this.donThuoc = donThuoc;
+        this.thuoc = thuoc;
         this.soLuongKeDon = soLuongKeDon;
     }
 
-    public String getMaDonThuoc() {
-        return maDonThuoc;
+    public DonThuoc getDonThuoc() {
+        return donThuoc;
     }
 
-    public void setMaDonThuoc(String maDonThuoc) {
-        this.maDonThuoc = maDonThuoc;
+    public void setDonThuoc(DonThuoc donThuoc) {
+        this.donThuoc = donThuoc;
     }
 
-    public String getMaThuoc() {
-        return maThuoc;
+    public Thuoc getThuoc() {
+        return thuoc;
     }
 
-    public void setMaThuoc(String maThuoc) {
-        this.maThuoc = maThuoc;
+    public void setThuoc(Thuoc thuoc) {
+        this.thuoc = thuoc;
     }
 
     public int getSoLuongKeDon() {
@@ -40,8 +39,8 @@ public class ChiTietDonThuoc {
     @Override
     public String toString() {
         return "ChiTietDonThuoc{" +
-                "maDonThuoc='" + maDonThuoc + '\'' +
-                ", maThuoc='" + maThuoc + '\'' +
+                "donThuoc=" + (donThuoc != null ? donThuoc.getMaDonThuoc() : null) +
+                ", thuoc=" + (thuoc != null ? thuoc.getMaThuoc() : null) +
                 ", soLuongKeDon=" + soLuongKeDon +
                 '}';
     }
