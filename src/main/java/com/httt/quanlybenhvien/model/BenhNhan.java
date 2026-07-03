@@ -98,11 +98,15 @@ public class BenhNhan {
         this.bhyt = bhyt;
     }
 
-    public void dangKyKham() {
-        System.out.println("Đăng ký khám");
-    }
-
-    public void capNhatThongTin() {
-        System.out.println("Cập nhật thông tin");
+    @Override
+    public String toString() {
+        return "BenhNhan{" +
+                "maBenhNhan='" + maBenhNhan + '\'' +
+                ", hoTen='" + hoTen + '\'' +
+                ", ngaySinh=" + ngaySinh +
+                ", gioiTinh='" + gioiTinh + '\'' +
+                ", diaChi='" + diaChi + '\'' +
+                ", soDienThoai='" + soDienThoai + '\'' +
+                '}';
     }
 }
