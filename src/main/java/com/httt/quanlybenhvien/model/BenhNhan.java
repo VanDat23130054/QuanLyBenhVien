@@ -14,6 +14,18 @@ public class BenhNhan {
     private List<BenhAn> benhAns = new ArrayList<>();
     private BHYT bhyt;
 
+     public BenhNhan() {
+    }
+    public BenhNhan(String maBenhNhan, String hoTen, Date ngaySinh,
+                     String gioiTinh, String diaChi, String soDienThoai) {
+        this.maBenhNhan = maBenhNhan;
+        this.hoTen = hoTen;
+        this.ngaySinh = ngaySinh;
+        this.gioiTinh = gioiTinh;
+        this.diaChi = diaChi;
+        this.soDienThoai = soDienThoai;
+    }
+    
     public String getMaBenhNhan() {
         return maBenhNhan;
     }
