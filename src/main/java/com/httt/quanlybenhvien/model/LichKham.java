@@ -2,29 +2,20 @@ package com.httt.quanlybenhvien.model;
 
 import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
+
 public class LichKham {
     private String maLichKham;
     private LocalDateTime ngayKham;
     private String chanDoan;
-    private String maBenhNhan;
-    private String maLeTan;
-    private String maBacSi;
 
-    public LichKham() {}
-
-    public LichKham(String maLichKham, LocalDateTime ngayKham, String chanDoan, String maBenhNhan, String maLeTan, String maBacSi) {
-        this.maLichKham = maLichKham;
-        this.ngayKham = ngayKham;
-        this.chanDoan = chanDoan;
-        this.maBenhNhan = maBenhNhan;
-        this.maLeTan = maLeTan;
-        this.maBacSi = maBacSi;
-    }
+    private BenhNhan benhNhan;
+    private NhanVien bacSi;
+    private NhanVien leTan;
 
     public String getMaLichKham() {
         return maLichKham;
     }
-
     public void setMaLichKham(String maLichKham) {
         this.maLichKham = maLichKham;
     }
@@ -32,7 +23,6 @@ public class LichKham {
     public LocalDateTime getNgayKham() {
         return ngayKham;
     }
-
     public void setNgayKham(LocalDateTime ngayKham) {
         this.ngayKham = ngayKham;
     }
@@ -40,35 +30,29 @@ public class LichKham {
     public String getChanDoan() {
         return chanDoan;
     }
-
     public void setChanDoan(String chanDoan) {
         this.chanDoan = chanDoan;
     }
 
-    public String getMaBenhNhan() {
-        return maBenhNhan;
+    public BenhNhan getBenhNhan() {
+        return benhNhan;
+    }
+    public void setBenhNhan(BenhNhan benhNhan) {
+        this.benhNhan = benhNhan;
     }
 
-    public void setMaBenhNhan(String maBenhNhan) {
-        this.maBenhNhan = maBenhNhan;
+    public NhanVien getBacSi() {
+        return bacSi;
     }
+    public void setBacSi(NhanVien bacSi) {
+        this.bacSi = bacSi; }
 
-    public String getMaLeTan() {
-        return maLeTan;
+    public NhanVien getLeTan() {
+        return leTan;
     }
-
-    public void setMaLeTan(String maLeTan) {
-        this.maLeTan = maLeTan;
+    public void setLeTan(NhanVien leTan) {
+        this.leTan = leTan;
     }
-
-    public String getMaBacSi() {
-        return maBacSi;
-    }
-
-    public void setMaBacSi(String maBacSi) {
-        this.maBacSi = maBacSi;
-    }
-
     @Override
     public String toString() {
         return "LichKham{" +
