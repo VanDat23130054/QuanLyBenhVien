@@ -3,33 +3,44 @@ package com.httt.quanlybenhvien.model;
 import java.time.LocalDateTime;
 
 public class HoaDon {
-    public static final String TRANG_THAI_CHUA_THANH_TOAN = "Chưa thanh toán";
-    public static final String TRANG_THAI_DA_THANH_TOAN = "Đã thanh toán";
+
+    public static final String CHUA_THANH_TOAN = "Chưa thanh toán";
+    public static final String DA_THANH_TOAN = "Đã thanh toán";
 
     private String maHoaDon;
     private String loaiHoaDon;
     private int donGia;
-    private String maBenhNhan;
+
+    private BenhNhan benhNhan;
+
     private String trangThaiThanhToan;
     private LocalDateTime ngayThanhToan;
     private String phuongThucThanhToan;
 
-    public HoaDon() {}
-
-    public HoaDon(String maHoaDon, String loaiHoaDon, int donGia, String maBenhNhan) {
-        this(maHoaDon, loaiHoaDon, donGia, maBenhNhan, TRANG_THAI_CHUA_THANH_TOAN, null, null);
+    public HoaDon() {
     }
 
-    public HoaDon(String maHoaDon, String loaiHoaDon, int donGia, String maBenhNhan,
-                  String trangThaiThanhToan, LocalDateTime ngayThanhToan, String phuongThucThanhToan) {
+    public HoaDon(String maHoaDon, String loaiHoaDon, int donGia, BenhNhan benhNhan) {
         this.maHoaDon = maHoaDon;
         this.loaiHoaDon = loaiHoaDon;
         this.donGia = donGia;
-        this.maBenhNhan = maBenhNhan;
+        this.benhNhan = benhNhan;
+        this.trangThaiThanhToan = CHUA_THANH_TOAN;
+    }
+
+    public HoaDon(String maHoaDon, String loaiHoaDon, int donGia, BenhNhan benhNhan,
+                  String trangThaiThanhToan, LocalDateTime ngayThanhToan,
+                  String phuongThucThanhToan) {
+        this.maHoaDon = maHoaDon;
+        this.loaiHoaDon = loaiHoaDon;
+        this.donGia = donGia;
+        this.benhNhan = benhNhan;
         this.trangThaiThanhToan = trangThaiThanhToan;
         this.ngayThanhToan = ngayThanhToan;
         this.phuongThucThanhToan = phuongThucThanhToan;
     }
+
+    // ===== GETTER SETTER =====
 
     public String getMaHoaDon() {
         return maHoaDon;
@@ -55,12 +66,12 @@ public class HoaDon {
         this.donGia = donGia;
     }
 
-    public String getMaBenhNhan() {
-        return maBenhNhan;
+    public BenhNhan getBenhNhan() {
+        return benhNhan;
     }
 
-    public void setMaBenhNhan(String maBenhNhan) {
-        this.maBenhNhan = maBenhNhan;
+    public void setBenhNhan(BenhNhan benhNhan) {
+        this.benhNhan = benhNhan;
     }
 
     public String getTrangThaiThanhToan() {
@@ -87,8 +98,9 @@ public class HoaDon {
         this.phuongThucThanhToan = phuongThucThanhToan;
     }
 
+    // ===== BUSINESS METHOD (OK giữ lại) =====
     public boolean daThanhToan() {
-        return TRANG_THAI_DA_THANH_TOAN.equalsIgnoreCase(trangThaiThanhToan);
+        return DA_THANH_TOAN.equalsIgnoreCase(trangThaiThanhToan);
     }
 
     @Override
@@ -97,7 +109,7 @@ public class HoaDon {
                 "maHoaDon='" + maHoaDon + '\'' +
                 ", loaiHoaDon='" + loaiHoaDon + '\'' +
                 ", donGia=" + donGia +
-                ", maBenhNhan='" + maBenhNhan + '\'' +
+                ", benhNhan=" + (benhNhan != null ? benhNhan.getMaBenhNhan() : null) +
                 ", trangThaiThanhToan='" + trangThaiThanhToan + '\'' +
                 ", ngayThanhToan=" + ngayThanhToan +
                 ", phuongThucThanhToan='" + phuongThucThanhToan + '\'' +
