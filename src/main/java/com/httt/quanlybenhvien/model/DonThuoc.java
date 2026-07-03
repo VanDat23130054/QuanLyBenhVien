@@ -1,20 +1,23 @@
 package com.httt.quanlybenhvien.model;
 
+import java.util.List;
+
 public class DonThuoc {
     private String maDonThuoc;
-    private String maLichKham;
-    private String maBacSi;
-    private String maDuocSi; // optional
+    private LichKham lichKham;
+    private NhanVien bacSi;
+    private NhanVien duocSi;
+
+    private List<ChiTietDonThuoc> chiTietList;
 
     public DonThuoc() {}
-
-    public DonThuoc(String maDonThuoc, String maLichKham, String maBacSi, String maDuocSi) {
+    public DonThuoc(String maDonThuoc, LichKham lichKham,
+                    NhanVien bacSi, NhanVien duocSi) {
         this.maDonThuoc = maDonThuoc;
-        this.maLichKham = maLichKham;
-        this.maBacSi = maBacSi;
-        this.maDuocSi = maDuocSi;
+        this.lichKham = lichKham;
+        this.bacSi = bacSi;
+        this.duocSi = duocSi;
     }
-
     public String getMaDonThuoc() {
         return maDonThuoc;
     }
@@ -46,7 +49,12 @@ public class DonThuoc {
     public void setMaDuocSi(String maDuocSi) {
         this.maDuocSi = maDuocSi;
     }
-
+    public List<ChiTietDonThuoc> getChiTietList() {
+        return chiTietList;
+    }
+    public void setChiTietList(List<ChiTietDonThuoc> chiTietList) {
+        this.chiTietList = chiTietList;
+    }
     @Override
     public String toString() {
         return "DonThuoc{" +
