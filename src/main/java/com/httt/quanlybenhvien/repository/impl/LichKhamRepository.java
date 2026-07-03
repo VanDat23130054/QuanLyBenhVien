@@ -132,4 +132,17 @@ public class LichKhamRepository implements Repository<LichKham, String> {
                 rs.getString("maBacSi")
         );
     }
+    public boolean updateChanDoan(String maLichKham, String chanDoan) throws SQLException {
+
+    String sql = "UPDATE LichKham SET chanDoan = ? WHERE maLichKham = ?";
+
+    try (Connection conn = DatabaseConfig.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, chanDoan);
+        ps.setString(2, maLichKham);
+
+        return ps.executeUpdate() > 0;
+    }
+}
 }
