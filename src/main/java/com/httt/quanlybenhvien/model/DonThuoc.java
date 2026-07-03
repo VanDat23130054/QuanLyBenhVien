@@ -10,7 +10,9 @@ public class DonThuoc {
 
     private List<ChiTietDonThuoc> chiTietList;
 
-    public DonThuoc() {}
+    public DonThuoc() {
+    }
+
     public DonThuoc(String maDonThuoc, LichKham lichKham,
                     NhanVien bacSi, NhanVien duocSi) {
         this.maDonThuoc = maDonThuoc;
@@ -18,6 +20,7 @@ public class DonThuoc {
         this.bacSi = bacSi;
         this.duocSi = duocSi;
     }
+
     public String getMaDonThuoc() {
         return maDonThuoc;
     }
@@ -26,42 +29,45 @@ public class DonThuoc {
         this.maDonThuoc = maDonThuoc;
     }
 
-    public String getMaLichKham() {
-        return maLichKham;
+    public LichKham getLichKham() {
+        return lichKham;
     }
 
-    public void setMaLichKham(String maLichKham) {
-        this.maLichKham = maLichKham;
+    public void setLichKham(LichKham lichKham) {
+        this.lichKham = lichKham;
     }
 
-    public String getMaBacSi() {
-        return maBacSi;
+    public NhanVien getBacSi() {
+        return bacSi;
     }
 
-    public void setMaBacSi(String maBacSi) {
-        this.maBacSi = maBacSi;
+    public void setBacSi(NhanVien bacSi) {
+        this.bacSi = bacSi;
     }
 
-    public String getMaDuocSi() {
-        return maDuocSi;
+    public NhanVien getDuocSi() {
+        return duocSi;
     }
 
-    public void setMaDuocSi(String maDuocSi) {
-        this.maDuocSi = maDuocSi;
+    public void setDuocSi(NhanVien duocSi) {
+        this.duocSi = duocSi;
     }
+
     public List<ChiTietDonThuoc> getChiTietList() {
         return chiTietList;
     }
+
     public void setChiTietList(List<ChiTietDonThuoc> chiTietList) {
         this.chiTietList = chiTietList;
     }
+
     @Override
     public String toString() {
         return "DonThuoc{" +
                 "maDonThuoc='" + maDonThuoc + '\'' +
-                ", maLichKham='" + maLichKham + '\'' +
-                ", maBacSi='" + maBacSi + '\'' +
-                ", maDuocSi='" + maDuocSi + '\'' +
+                ", lichKham=" + (lichKham != null ? lichKham.getMaLichKham() : null) +
+                ", bacSi=" + (bacSi != null ? bacSi.getMaNhanVien() : null) +
+                ", duocSi=" + (duocSi != null ? duocSi.getMaNhanVien() : null) +
                 '}';
     }
 }
